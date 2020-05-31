@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.wuliu.mapper.ExpressMapper">
+  <resultMap id="BaseResultMap" type="com.bishe.wuliu.pojo.Express">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="fromlocation" jdbcType="VARCHAR" property="fromlocation" />
+    <result column="tolocation" jdbcType="VARCHAR" property="tolocation" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="posttime" jdbcType="TIMESTAMP" property="posttime" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, fromlocation, tolocation, phone, posttime, type, company
+  </sql>
+  <select id="selectByExample" parameterType="com.bishe.wuliu.pojo.ExpressExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from express
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from express
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from express
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bishe.wuliu.pojo.ExpressExample">
+    delete from express
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bishe.wuliu.pojo.Express">
+    insert into express (id, fromlocation, tolocation, 
+      phone, posttime, type, 
+      company)
+    values (#{id,jdbcType=VARCHAR}, #{fromlocation,jdbcType=VARCHAR}, #{tolocation,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{posttime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bishe.wuliu.pojo.Express">
+    insert into express
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fromlocation != null">
+        fromlocation,
+      </if>
+      <if test="tolocation != null">
+        tolocation,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="posttime != null">
+        posttime,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fromlocation != null">
+        #{fromlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="tolocation != null">
+        #{tolocation,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="posttime != null">
+        #{posttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bishe.wuliu.pojo.ExpressExample" resultType="java.lang.Long">
+    select count(*) from express
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update express
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromlocation != null">
+        fromlocation = #{record.fromlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tolocation != null">
+        tolocation = #{record.tolocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posttime != null">
+        posttime = #{record.posttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update express
+    set id = #{record.id,jdbcType=VARCHAR},
+      fromlocation = #{record.fromlocation,jdbcType=VARCHAR},
+      tolocation = #{record.tolocation,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      posttime = #{record.posttime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bishe.wuliu.pojo.Express">
+    update express
+    <set>
+      <if test="fromlocation != null">
+        fromlocation = #{fromlocation,jdbcType=VARCHAR},
+      </if>
+      <if test="tolocation != null">
+        tolocation = #{tolocation,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="posttime != null">
+        posttime = #{posttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bishe.wuliu.pojo.Express">
+    update express
+    set fromlocation = #{fromlocation,jdbcType=VARCHAR},
+      tolocation = #{tolocation,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      posttime = #{posttime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

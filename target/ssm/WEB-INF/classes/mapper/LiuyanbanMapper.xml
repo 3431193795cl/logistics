@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.wuliu.mapper.LiuyanbanMapper">
+	<resultMap id="BaseResultMap"
+		type="com.bishe.wuliu.pojo.Liuyanban">
+		<id column="name" jdbcType="VARCHAR" property="name" />
+		<result column="E-mail" jdbcType="VARCHAR" property="eMail" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="liuyan" jdbcType="VARCHAR" property="liuyan" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		name, `E-mail`, title, liuyan
+	</sql>
+	<select id="selectByExample"
+		parameterType="com.bishe.wuliu.pojo.LiuyanbanExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from liuyanban
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from liuyanban
+		where name = #{name,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from liuyanban
+		where name = #{name,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="com.bishe.wuliu.pojo.LiuyanbanExample">
+		delete from liuyanban
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.bishe.wuliu.pojo.Liuyanban">
+		insert into liuyanban (`name`, `E-mail`, title,
+		liuyan)
+		values (#{name,jdbcType=VARCHAR}, #{eMail,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR},
+		#{liuyan,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.bishe.wuliu.pojo.Liuyanban">
+		insert into liuyanban
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				`name`,
+			</if>
+			<if test="eMail != null">
+				`E-mail`,
+			</if>
+			<if test="title != null">
+				`title`,
+			</if>
+			<if test="liuyan != null">
+				`liuyan`,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="eMail != null">
+				#{eMail,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="liuyan != null">
+				#{liuyan,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.bishe.wuliu.pojo.LiuyanbanExample"
+		resultType="java.lang.Long">
+		select count(*) from liuyanban
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update liuyanban
+		<set>
+			<if test="record.name != null">
+				name = #{record.name,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eMail != null">
+				E-mail = #{record.eMail,jdbcType=VARCHAR},
+			</if>
+			<if test="record.title != null">
+				title = #{record.title,jdbcType=VARCHAR},
+			</if>
+			<if test="record.liuyan != null">
+				liuyan = #{record.liuyan,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update liuyanban
+		set name = #{record.name,jdbcType=VARCHAR},
+		E-mail = #{record.eMail,jdbcType=VARCHAR},
+		title = #{record.title,jdbcType=VARCHAR},
+		liuyan = #{record.liuyan,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.bishe.wuliu.pojo.Liuyanban">
+		update liuyanban
+		<set>
+			<if test="eMail != null">
+				E-mail = #{eMail,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="liuyan != null">
+				liuyan = #{liuyan,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where name = #{name,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.bishe.wuliu.pojo.Liuyanban">
+		update liuyanban
+		set E-mail = #{eMail,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		liuyan = #{liuyan,jdbcType=VARCHAR}
+		where name = #{name,jdbcType=VARCHAR}
+	</update>
+</mapper>
