@@ -812,7 +812,7 @@
 		<div class="container">
 			<div class="footer-top">
 				<p style="color: black;">
-					地址：中国山东省烟台市莱山区清泉路  邮编：264005  <a style="color: black;"
+					2020 &copy; <a href="https://mail.qq.com/3431193795@qq.com">jerrymouse</a>&trade;<a style="color: black;"
 						href="<%=path%>/toLogin.action">管理员</a>
 				</p>
 			</div>
